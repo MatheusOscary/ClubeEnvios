@@ -138,7 +138,14 @@ return [
         'ClubeEnvios\\V1\\Rest\\User\\Validator' => [
             0 => [
                 'required' => true,
-                'validators' => [],
+                'validators' => [
+                    0 => [
+                        'name' => \Laminas\Validator\StringLength::class,
+                        'options' => [
+                            'max' => '128',
+                        ],
+                    ],
+                ],
                 'filters' => [
                     0 => [
                         'name' => \Laminas\Filter\StringTrim::class,
@@ -148,11 +155,18 @@ return [
                 'name' => 'name',
                 'description' => 'Nome completo do usuário',
                 'field_type' => 'string',
-                'error_message' => 'O campo name é obrigatório!',
+                'error_message' => 'O campo name está preenchido incorretamente, o tamanho máximo é de 128 caracteres.',
             ],
             1 => [
                 'required' => true,
-                'validators' => [],
+                'validators' => [
+                    0 => [
+                        'name' => \Laminas\Validator\StringLength::class,
+                        'options' => [
+                            'max' => '32',
+                        ],
+                    ],
+                ],
                 'filters' => [
                     0 => [
                         'name' => \Laminas\Filter\StringTrim::class,
@@ -162,11 +176,17 @@ return [
                 'name' => 'login',
                 'description' => 'Nome de login único para o usuário',
                 'field_type' => 'string',
-                'error_message' => 'O campo login é obrigatório',
+                'error_message' => 'O campo login está preenchido incorretamente, o tamanho máximo é de 32 caracteres.',
+                'allow_empty' => false,
             ],
             2 => [
                 'required' => true,
-                'validators' => [],
+                'validators' => [
+                    0 => [
+                        'name' => \Laminas\Validator\StringLength::class,
+                        'options' => [],
+                    ],
+                ],
                 'filters' => [],
                 'name' => 'password',
                 'description' => 'Senha que será utilizada na autenticação.',

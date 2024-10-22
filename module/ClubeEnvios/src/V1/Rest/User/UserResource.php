@@ -23,12 +23,11 @@ class UserResource extends AbstractResourceListener
     {   
         $user = new UserEntity($data->name, $data->login, password_hash($data->password, PASSWORD_DEFAULT));
         $row = $this->userModel->verificaLogin($user->getLogin());
-        if($row){   
+        
+        if(!empty($row)){
             return new ApiProblem(409, 'Já existe um usuário cadastrado com esse login.');
         }
 
-        
-        $senhaHash = password_hash($data->password, PASSWORD_DEFAULT);
         try {
             $this->userModel->InsertUsuario($user);
             
