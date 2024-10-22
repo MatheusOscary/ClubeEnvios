@@ -29,6 +29,7 @@
     },
     "require": {
         "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "firebase/php-jwt": "^6.10",
         "laminas-api-tools/api-tools": "^1.7",
         "laminas-api-tools/api-tools-content-negotiation": "^1.8",
         "laminas-api-tools/api-tools-documentation": "^1.6",

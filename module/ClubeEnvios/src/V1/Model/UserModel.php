@@ -14,7 +14,7 @@ class UserModel
 
     public function verificaLogin($login)
     {
-        $sql = "SELECT login FROM usuarios WHERE login = ?";
+        $sql = "SELECT * FROM usuarios WHERE login = ?";
         $stmt = $this->dbAdapter->createStatement($sql, [$login]);
         $result = $stmt->execute();
         return $result->current();

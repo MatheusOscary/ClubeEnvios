@@ -40,15 +40,9 @@ return [
             'route_name' => 'clube-envios.rest.auth',
             'route_identifier_name' => 'auth_id',
             'collection_name' => 'auth',
-            'entity_http_methods' => [
-                0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
-            ],
+            'entity_http_methods' => [],
             'collection_http_methods' => [
-                0 => 'GET',
-                1 => 'POST',
+                0 => 'POST',
             ],
             'collection_query_whitelist' => [],
             'page_size' => 25,
@@ -56,6 +50,7 @@ return [
             'entity_class' => \ClubeEnvios\V1\Rest\Auth\AuthEntity::class,
             'collection_class' => \ClubeEnvios\V1\Rest\Auth\AuthCollection::class,
             'service_name' => 'Auth',
+            'post_resource' => 'login',
         ],
         'ClubeEnvios\\V1\\Rest\\User\\Controller' => [
             'listener' => \ClubeEnvios\V1\Rest\User\UserResource::class,
@@ -76,14 +71,13 @@ return [
     ],
     'api-tools-content-negotiation' => [
         'controllers' => [
-            'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => 'HalJson',
+            'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => 'Json',
             'ClubeEnvios\\V1\\Rest\\User\\Controller' => 'Json',
         ],
         'accept_whitelist' => [
             'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
                 0 => 'application/vnd.clube-envios.v1+json',
-                1 => 'application/hal+json',
-                2 => 'application/json',
+                1 => 'application/json',
             ],
             'ClubeEnvios\\V1\\Rest\\User\\Controller' => [
                 0 => 'application/vnd.clube-envios.v1+json',
@@ -198,6 +192,22 @@ return [
     'api-tools-mvc-auth' => [
         'authorization' => [
             'ClubeEnvios\\V1\\Rest\\User\\Controller' => [
+                'collection' => [
+                    'GET' => false,
+                    'POST' => false,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ],
+                'entity' => [
+                    'GET' => false,
+                    'POST' => false,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ],
+            ],
+            'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
                 'collection' => [
                     'GET' => false,
                     'POST' => false,
