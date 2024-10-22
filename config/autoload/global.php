@@ -1,14 +1,17 @@
 <?php
-
-declare(strict_types=1);
-
 return [
     'api-tools-content-negotiation' => [
         'selectors' => [],
     ],
-    'db'                            => [
+    'db' => [
         'adapters' => [
-            'dummy' => [],
+            'Database' => [
+                'driver' => 'Pdo_Mysql',
+                'hostname' => 'localhost',
+                'database' => 'clubeenvios',
+                'username' => 'root',
+                'password' => '',
+            ],
         ],
     ],
 ];
