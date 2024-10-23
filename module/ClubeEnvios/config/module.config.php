@@ -293,17 +293,7 @@ return [
                 'error_message' => 'O campo password é obrigatório.',
             ],
         ],
-        'ClubeEnvios\\V1\\Rest\\Cotacao\\Validator' => [
-            0 => [
-                'required' => true,
-                'validators' => [],
-                'filters' => [],
-                'name' => 'valor',
-                'description' => 'Valor da cotação.',
-                'field_type' => 'float',
-                'error_message' => 'O campo valor é obrigatório.',
-            ],
-        ],
+        'ClubeEnvios\\V1\\Rest\\Cotacao\\Validator' => [],
         'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Validator' => [
             0 => [
                 'required' => true,
@@ -337,7 +327,7 @@ return [
             'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => [
                 'collection' => [
                     'GET' => false,
-                    'POST' => true,
+                    'POST' => false,
                     'PUT' => false,
                     'PATCH' => false,
                     'DELETE' => false,
