@@ -65,4 +65,13 @@ class CotacaoModel
         $result = $stmt->execute();
         return $result->current();
     }
+    public function Select($userid){
+        $sql = "SELECT Cotacao.id_cotacao as id_cotacao, nm_servico as servico, valor 
+        FROM Cotacao 
+        INNER JOIN servicos ON Cotacao.Id_servico = servicos.id 
+        WHERE id_usuario = ". $userid ."";
+        $stmt = $this->dbAdapter->createStatement($sql);
+        $result = $stmt->execute();
+        return $result;
+    }
 }

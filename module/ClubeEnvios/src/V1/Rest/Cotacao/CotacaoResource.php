@@ -37,6 +37,9 @@ class CotacaoResource extends AbstractResourceListener
         $cotacao->setPeso($data->peso);
         $cotacao->setCep($data->cep);
         $cotacao = $this->cotacaoModel->fazerCotacao($cotacao);
+        if(empty($cotacao->getIdCotacao())){
+            return new ApiProblem(404, 'Não foi possivel cotar um frete.');
+        }
         $result = [
             'id_cotacao' =>$cotacao->getIdCotacao(),
             'servico' => $cotacao->getServico(),
@@ -79,7 +82,18 @@ class CotacaoResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        $tokenValidationResult = AuthorizationHelper::validateAuthorizationToken();
+        if ($tokenValidationResult instanceof ApiProblem) {
+            return $tokenValidationResult;
+        }
+        $decode = ($tokenValidationResult['decoded']);
+        $userid = $decode->sub;
+        $result = $this->cotacaoModel->Select($userid);
+        $cotacoes = [];
+        foreach ($result as $row){
+            $cotacoes[] = $row;
+        }
+        return $cotacoes;
     }
 
     
