@@ -42,7 +42,7 @@ Este projeto provavelmente utiliza o Composer para gerenciar suas dependências 
 **4\. Configure o banco de dados**
 Extra o arquivo [clubeenvios.sql.zip](clubeenvios.sql.zip) e importe o banco de dados.
 
-Após isso configure sua conexão no [global.php](config\autoload\global.php)
+Após isso configure sua conexão no [global.php](config/autoload/global.php)
 
 ```php
  return [
