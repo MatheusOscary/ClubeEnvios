@@ -4,6 +4,8 @@ return [
         'factories' => [
             \ClubeEnvios\V1\Rest\Auth\AuthResource::class => \ClubeEnvios\V1\Rest\Auth\AuthResourceFactory::class,
             \ClubeEnvios\V1\Rest\User\UserResource::class => \ClubeEnvios\V1\Rest\User\UserResourceFactory::class,
+            \ClubeEnvios\V1\Rest\Cotacao\CotacaoResource::class => \ClubeEnvios\V1\Rest\Cotacao\CotacaoResourceFactory::class,
+            'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\CotacaoServicosResource' => 'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\CotacaoServicosResourceFactory',
         ],
     ],
     'router' => [
@@ -26,12 +28,32 @@ return [
                     ],
                 ],
             ],
+            'clube-envios.rest.cotacao' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/cotacao[/:cotacao_id]',
+                    'defaults' => [
+                        'controller' => 'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller',
+                    ],
+                ],
+            ],
+            'clube-envios.rest.cotacao-servicos' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/cotacao-servicos[/:cotacao_servicos_id]',
+                    'defaults' => [
+                        'controller' => 'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Controller',
+                    ],
+                ],
+            ],
         ],
     ],
     'api-tools-versioning' => [
         'uri' => [
             0 => 'clube-envios.rest.auth',
             1 => 'clube-envios.rest.user',
+            2 => 'clube-envios.rest.cotacao',
+            3 => 'clube-envios.rest.cotacao-servicos',
         ],
     ],
     'api-tools-rest' => [
@@ -67,11 +89,32 @@ return [
             'collection_class' => \ClubeEnvios\V1\Rest\User\UserCollection::class,
             'service_name' => 'User',
         ],
+        'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => [
+            'listener' => \ClubeEnvios\V1\Rest\Cotacao\CotacaoResource::class,
+            'route_name' => 'clube-envios.rest.cotacao',
+            'route_identifier_name' => 'cotacao_id',
+            'collection_name' => 'cotacao',
+            'entity_http_methods' => [
+                0 => 'GET',
+            ],
+            'collection_http_methods' => [
+                0 => 'POST',
+                1 => 'GET',
+            ],
+            'collection_query_whitelist' => [],
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => \ClubeEnvios\V1\Rest\Cotacao\CotacaoEntity::class,
+            'collection_class' => \ClubeEnvios\V1\Rest\Cotacao\CotacaoCollection::class,
+            'service_name' => 'Cotacao',
+        ],
     ],
     'api-tools-content-negotiation' => [
         'controllers' => [
             'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => 'Json',
             'ClubeEnvios\\V1\\Rest\\User\\Controller' => 'Json',
+            'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => 'Json',
+            'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Controller' => 'Json',
         ],
         'accept_whitelist' => [
             'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
@@ -82,6 +125,14 @@ return [
                 0 => 'application/vnd.clube-envios.v1+json',
                 1 => 'application/json',
             ],
+            'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => [
+                0 => 'application/vnd.clube-envios.v1+json',
+                1 => 'application/json',
+            ],
+            'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Controller' => [
+                0 => 'application/vnd.clube-envios.v1+json',
+                1 => 'application/json',
+            ],
         ],
         'content_type_whitelist' => [
             'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
@@ -89,6 +140,14 @@ return [
                 1 => 'application/json',
             ],
             'ClubeEnvios\\V1\\Rest\\User\\Controller' => [
+                0 => 'application/vnd.clube-envios.v1+json',
+                1 => 'application/json',
+            ],
+            'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => [
+                0 => 'application/vnd.clube-envios.v1+json',
+                1 => 'application/json',
+            ],
+            'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Controller' => [
                 0 => 'application/vnd.clube-envios.v1+json',
                 1 => 'application/json',
             ],
@@ -120,6 +179,24 @@ return [
                 'route_identifier_name' => 'user_id',
                 'is_collection' => true,
             ],
+            \ClubeEnvios\V1\Rest\Cotacao\CotacaoEntity::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'clube-envios.rest.cotacao',
+                'route_identifier_name' => 'cotacao_id',
+                'hydrator' => \Laminas\Hydrator\ArraySerializableHydrator::class,
+            ],
+            \ClubeEnvios\V1\Rest\Cotacao\CotacaoCollection::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'clube-envios.rest.cotacao',
+                'route_identifier_name' => 'cotacao_id',
+                'is_collection' => true,
+            ],
+            'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\CotacaoServicosEntity' => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'clube-envios.rest.cotacao-servicos',
+                'route_identifier_name' => 'cotacao_servicos_id',
+                'hydrator' => \Laminas\Hydrator\ArraySerializableHydrator::class,
+            ],
         ],
     ],
     'api-tools-content-validation' => [
@@ -128,6 +205,12 @@ return [
         ],
         'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
             'input_filter' => 'ClubeEnvios\\V1\\Rest\\Auth\\Validator',
+        ],
+        'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => [
+            'input_filter' => 'ClubeEnvios\\V1\\Rest\\Cotacao\\Validator',
+        ],
+        'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Controller' => [
+            'input_filter' => 'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Validator',
         ],
     ],
     'input_filter_specs' => [
@@ -210,6 +293,28 @@ return [
                 'error_message' => 'O campo password é obrigatório.',
             ],
         ],
+        'ClubeEnvios\\V1\\Rest\\Cotacao\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'valor',
+                'description' => 'Valor da cotação.',
+                'field_type' => 'float',
+                'error_message' => 'O campo valor é obrigatório.',
+            ],
+        ],
+        'ClubeEnvios\\V1\\Rest\\CotacaoServicos\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'servico',
+                'description' => 'Nome do serviço de cotação.',
+                'field_type' => 'string',
+                'error_message' => 'O campo servico é obrigatório.',
+            ],
+        ],
     ],
     'api-tools-mvc-auth' => [
         'authorization' => [
@@ -224,6 +329,22 @@ return [
                 'entity' => [
                     'GET' => false,
                     'POST' => false,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ],
+            ],
+            'ClubeEnvios\\V1\\Rest\\Cotacao\\Controller' => [
+                'collection' => [
+                    'GET' => false,
+                    'POST' => true,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ],
+                'entity' => [
+                    'GET' => false,
+                    'POST' => true,
                     'PUT' => false,
                     'PATCH' => false,
                     'DELETE' => false,

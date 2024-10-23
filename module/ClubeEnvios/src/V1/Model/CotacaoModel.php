@@ -2,7 +2,6 @@
 namespace ClubeEnvios\V1\Model;
 
 use Laminas\Db\Adapter\Adapter;
-use \ClubeEnvios\V1\Rest\CotacaoServicos\CotacaoServicosEntity;
 use \ClubeEnvios\V1\Rest\Cotacao\CotacaoEntity;
 class CotacaoModel 
 {
@@ -13,32 +12,6 @@ class CotacaoModel
         $this->dbAdapter = $dbAdapter;
     }
 
-    public function SelectServico()
-    {
-        $sql = "SELECT servicos.id as id_Servico, nm_servico, transportadoras.id as id_Transportadora, nm_transportadora
-                FROM servicos 
-                INNER JOIN transportadoras 
-                ON servicos.id_transportadora = transportadoras.id;";
-        
-        $stmt = $this->dbAdapter->createStatement($sql);
-        $result = $stmt->execute();
-
-        $servicosArray = [];
-
-        foreach ($result as $row) {
-            
-            $servico = new CotacaoServicosEntity();
-
-            $servico->setIdServico($row['id_Servico']);
-            $servico->setNmServico($row['nm_servico']);
-            $servico->setIdTransportadora($row['id_Transportadora']);
-            $servico->setNmTransportadora($row['nm_transportadora']);
-            
-            $servicosArray[] = $servico;
-        }
-        //print_r($servicosArray);
-        return $servicosArray;
-    }
 
     public function fazerCotacao(CotacaoEntity $cotacao){
         $sql = "SELECT 
@@ -82,5 +55,14 @@ class CotacaoModel
         ]);
         $stmt->execute();
         return $this->dbAdapter->getDriver()->getLastGeneratedValue();
+    }
+    public function SelectId($id, $userid){
+        $sql = "SELECT Cotacao.id_cotacao as id_cotacao, nm_servico as servico, valor 
+        FROM Cotacao 
+        INNER JOIN servicos ON Cotacao.Id_servico = servicos.id 
+        WHERE Cotacao.id_cotacao = ". $id ." AND id_usuario = ". $userid ."";
+        $stmt = $this->dbAdapter->createStatement($sql);
+        $result = $stmt->execute();
+        return $result->current();
     }
 }

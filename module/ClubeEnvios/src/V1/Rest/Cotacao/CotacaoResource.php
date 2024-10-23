@@ -50,9 +50,25 @@ class CotacaoResource extends AbstractResourceListener
     }
 
     
+    /**
+     * Fetch a resource
+     *
+     * @param  mixed $id
+     * @return ApiProblem|mixed
+     */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        $tokenValidationResult = AuthorizationHelper::validateAuthorizationToken();
+        if ($tokenValidationResult instanceof ApiProblem) {
+            return $tokenValidationResult;
+        }
+        $decode = ($tokenValidationResult['decoded']);
+        $userid = $decode->sub;
+        $row = $this->cotacaoModel->SelectId($id, $userid);
+        if (empty($row)) {
+            return new ApiProblem(404, 'Registro não encontrado para o ID especificado.');
+        }
+        return $row;
     }
 
     /**
