@@ -12,6 +12,15 @@ return [
                 'username' => 'root',
                 'password' => '',
             ],
+        ]
+    ],
+    'dependencies' => [
+        'factories' => [
+            ClubeEnvios\Validator\TokenValidator::class => function($container) {
+                return new ClubeEnvios\Validator\TokenValidator();
+            },
         ],
     ],
 ];
+
+    

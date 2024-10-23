@@ -35,7 +35,13 @@
         "laminas-api-tools/api-tools-documentation": "^1.6",
         "laminas-api-tools/api-tools-rest": "^1.8",
         "laminas/laminas-component-installer": "^3.1",
-        "laminas/laminas-development-mode": "^3.9"
+        "laminas/laminas-development-mode": "^3.9",
+        "laminas/laminas-diactoros": "^3.5",
+        "laminas/laminas-http": "^2.20",
+        "laminas/laminas-httphandlerrunner": "*",
+        "laminas/laminas-mvc-middleware": "^2.4.0",
+        "laminas/laminas-psr7bridge": "^1.11",
+        "laminas/laminas-stratigility": "^3.3"
     },
     "require-dev": {
         "laminas-api-tools/api-tools-admin": "^2.1",
@@ -62,7 +68,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "ClubeEnvios\\": "module/ClubeEnvios/src/"
         }
     },
     "autoload-dev": {

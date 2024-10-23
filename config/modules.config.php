@@ -6,6 +6,7 @@
  * The previous config file has been stored in ./config/modules.config.old
  */
 return [
+    'Laminas\Mvc\Middleware',
     'Laminas\\Mvc\\I18n',
     'Laminas\\I18n',
     'Laminas\\ComposerAutoloading',
@@ -29,6 +30,7 @@ return [
     'Laminas\\ApiTools\\Rpc',
     'Laminas\\ApiTools\\Versioning',
     'Laminas\\ZendFrameworkBridge',
+    'Laminas\Diactoros',
     'Application',
     'ClubeEnvios',
 ];
