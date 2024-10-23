@@ -40,15 +40,9 @@ return [
             'route_name' => 'clube-envios.rest.auth',
             'route_identifier_name' => 'auth_id',
             'collection_name' => 'auth',
-            'entity_http_methods' => [
-                0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
-            ],
+            'entity_http_methods' => [],
             'collection_http_methods' => [
-                0 => 'GET',
-                1 => 'POST',
+                0 => 'POST',
             ],
             'collection_query_whitelist' => [],
             'page_size' => 25,
@@ -132,6 +126,9 @@ return [
         'ClubeEnvios\\V1\\Rest\\User\\Controller' => [
             'input_filter' => 'ClubeEnvios\\V1\\Rest\\User\\Validator',
         ],
+        'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
+            'input_filter' => 'ClubeEnvios\\V1\\Rest\\Auth\\Validator',
+        ],
     ],
     'input_filter_specs' => [
         'ClubeEnvios\\V1\\Rest\\User\\Validator' => [
@@ -191,6 +188,26 @@ return [
                 'description' => 'Senha que será utilizada na autenticação.',
                 'field_type' => 'string',
                 'error_message' => 'O campo senha é obrigatório',
+            ],
+        ],
+        'ClubeEnvios\\V1\\Rest\\Auth\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'login',
+                'description' => 'Nome de login único por usuário.',
+                'field_type' => 'string',
+                'error_message' => 'O campo login é obrigatório.',
+            ],
+            1 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'password',
+                'description' => 'Senha utilizada para autenticação do usuário.',
+                'field_type' => 'string',
+                'error_message' => 'O campo password é obrigatório.',
             ],
         ],
     ],

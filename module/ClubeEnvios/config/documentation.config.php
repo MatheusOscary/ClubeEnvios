@@ -16,4 +16,19 @@ return [
             ],
         ],
     ],
+    'ClubeEnvios\\V1\\Rest\\Auth\\Controller' => [
+        'collection' => [
+            'POST' => [
+                'request' => '{
+   "login": "Nome de login único por usuário.",
+   "password": "Senha utilizada para autenticação do usuário."
+}',
+                'response' => '{
+    "access_token": "",
+    "expires_in": "2024-10-22 14:30:00"
+}',
+                'description' => 'Este endpoint permite que os usuários se autentiquem fornecendo suas credenciais de login.',
+            ],
+        ],
+    ],
 ];
