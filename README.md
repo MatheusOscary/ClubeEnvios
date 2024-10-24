@@ -11,10 +11,10 @@ Segue a baixo o link com as instruções de consumo da API
 Requerimentos
 ------------
   
->1\. PHP 7.4 ou superior
->2\. Composer
->3\. Banco de Dados MySQL
->4\. Git
+>- 1\. PHP 7.4 ou superior
+>- 2\. Composer
+>- 3\. Banco de Dados MySQL
+>- 4\. Git
 
 
 Instalação
